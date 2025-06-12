@@ -17,9 +17,16 @@ public class Controller {
         return "ПРИВЕТ Hello!!<br>Guess the word" + game.getCurrentWord();
     }
 
-    @GetMapping(value = "/guess/{c}", produces = MediaType.TEXT_HTML_VALUE)
+
+//    @GetMapping(value = "/info", produces = MediaType.TEXT_HTML_VALUE)
+//    public String a() {
+//        return game.getCurrentWord() + "<br>" + game.getFaults();
+//    }
+
+    @GetMapping(value = "/guess/{c}/info", produces = MediaType.TEXT_HTML_VALUE)
     public String guess(@PathVariable("c") String c) {
         if (c.length() != 1) throw new RuntimeException("Bad character");
-        return game.guess(c.charAt(0));
+        return game.guess(c.charAt(0)) + "<br>"+game.getCurrentWord() + "<br>" + game.getFaults();
+
     }
 }
