@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Виселица</title>
+    <style>
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Игра Виселица</h1>
+
+<button onclick="newWord()">Загадать слово</button>
+<br>
+<button onclick="sendRequest('ё')">ё</button>
+<br>
+<button onclick="sendRequest('й')">й</button>
+<button onclick="sendRequest('ц')">ц</button>
+<button onclick="sendRequest('у')">у</button>
+<button onclick="sendRequest('к')">к</button>
+<button onclick="sendRequest('е')">е</button>
+<button onclick="sendRequest('н')">н</button>
+<button onclick="sendRequest('г')">г</button>
+<button onclick="sendRequest('ш')">ш</button>
+<button onclick="sendRequest('щ')">щ</button>
+<button onclick="sendRequest('з')">з</button>
+<button onclick="sendRequest('х')">х</button>
+<button onclick="sendRequest('ъ')">ъ</button>
+<br>
+<button onclick="sendRequest('ф')">ф</button>
+<button onclick="sendRequest('ы')">ы</button>
+<button onclick="sendRequest('в')">в</button>
+<button onclick="sendRequest('а')">а</button>
+<button onclick="sendRequest('п')">п</button>
+<button onclick="sendRequest('р')">р</button>
+<button onclick="sendRequest('о')">о</button>
+<button onclick="sendRequest('л')">л</button>
+<button onclick="sendRequest('д')">д</button>
+<button onclick="sendRequest('ж')">ж</button>
+<button onclick="sendRequest('э')">э</button>
+<br>
+<button onclick="sendRequest('я')">я</button>
+<button onclick="sendRequest('ч')">ч</button>
+<button onclick="sendRequest('с')">с</button>
+<button onclick="sendRequest('м')">м</button>
+<button onclick="sendRequest('и')">и</button>
+<button onclick="sendRequest('т')">т</button>
+<button onclick="sendRequest('ь')">ь</button>
+<button onclick="sendRequest('б')">б</button>
+<button onclick="sendRequest('ю')">ю</button>
+<div id="response"></div>
+
+<script>
+    function sendRequest(action) {
+        fetch('/api/button-click?action=' + action, {
+            method: 'POST'
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('response').innerHTML = data;
+        });
+    }
+
+    function newWord() {
+        fetch('/api/generate-word', {
+            method: 'POST'
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('response').innerHTML = 'Загаданное слово: ' + data + '<br>' + 'Количество попыток: ' + data['attempts'];
+        });
+    }
+</script>
+
+
+</body>
+</html>

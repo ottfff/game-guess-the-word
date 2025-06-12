@@ -54,7 +54,7 @@ public class Game {
         return new String(currentWord);
     }
 
-    public Integer getFaults() {
+    public Integer attempts() {
         return maxFaults - currentFaults;
     }
 }
