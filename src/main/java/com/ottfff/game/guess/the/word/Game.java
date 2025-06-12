@@ -3,6 +3,9 @@ package com.ottfff.game.guess.the.word;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+import java.util.Random;
+
 public class Game {
     private static final Logger log = LoggerFactory.getLogger(Game.class);
 
@@ -13,6 +16,13 @@ public class Game {
 
     public Game(String secretWord) {
         this.secretWord = secretWord.toLowerCase();
+        this.currentWord = secretWord.replaceAll(".", "_").toCharArray();
+    }
+
+    public Game() {
+        List<String> words = new ResourceFileWordsProvider().provide("some-book.txt");
+        int randomIndex = new Random().nextInt(0, words.size());
+        this.secretWord = words.get(randomIndex);
         this.currentWord = secretWord.replaceAll(".", "_").toCharArray();
     }
 
@@ -44,7 +54,7 @@ public class Game {
         return new String(currentWord);
     }
 
-    public Integer getFaults(){
-        return maxFaults-currentFaults;
+    public Integer getFaults() {
+        return maxFaults - currentFaults;
     }
 }
